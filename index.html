@@ -30,12 +30,22 @@
         .filter-btn.active { background: rgba(242, 169, 0, 0.1); }
 
         .trader-header { display: flex; align-items: center; gap: 25px; background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(26,26,26,0) 100%); padding: 15px; border-left: 5px solid var(--primary); margin: 2.5rem 0 1.5rem 0; cursor: pointer; }
-        .trader-portrait { width: 120px; height: 120px; border: 2px solid var(--primary); object-fit: cover; object-position: center top; background: #222; }
+        
+        .trader-portrait { 
+            width: 120px; 
+            height: 120px; 
+            border: 2px solid var(--primary); 
+            object-fit: cover; 
+            object-position: center top; /* Исправляет положение лица доктора */
+            background: #222; 
+        }
+
         .trader-info h2 { color: var(--primary); margin: 0; text-transform: uppercase; font-size: 1.6rem; }
 
         .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
-        .quest-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; min-height: 380px; transition: 0.2s; }
+        .quest-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; min-height: 400px; transition: 0.2s; }
         .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        
         .q-title { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
         .q-title-clickable { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(242, 169, 0, 0.3); }
 
@@ -65,9 +75,21 @@
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); }
         .modal-content { background: var(--card-bg); margin: 5% auto; padding: 25px; border: 1px solid var(--primary); width: 90%; max-width: 1100px; position: relative; overflow-y: auto; max-height: 85vh; }
         .close-modal { position: absolute; right: 20px; top: 15px; color: var(--primary); font-size: 2.5rem; cursor: pointer; }
+        
         .location-pics { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 25px; }
-        .location-img { width: 100%; display: block; border: 1px solid var(--border); background: #111; }
-        .location-img img { width: 100%; display: block; }
+        .location-img { width: 100%; display: block; border: 1px solid var(--border); background: #111; overflow: hidden; }
+        
+        /* Убирает лишнюю полоску снизу на фото */
+        .location-img img { 
+            width: 100%; 
+            height: 250px; 
+            display: block; 
+            object-fit: cover; 
+        }
+
+        .pic-box { display: flex; flex-direction: column; gap: 5px; }
+        .pic-label { font-size: 0.65rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+
         #modalTraderLoc { font-style: italic; border-left: 2px solid var(--primary); padding-left: 15px; margin: 15px 0; color: #fff; line-height: 1.6; }
     </style>
 </head>
@@ -118,17 +140,8 @@
             <div class="quest-card" id="q_4"><div class="q-header"><span class="q-title">Coffee Reserve</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Кофе</li><li>Кофейный фильтр</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Карта</li></ul></div><button class="status-btn" onclick="toggleQ('q_4')">ВЫПОЛНЕНО</button></div>
             
             <div class="quest-card" id="q_5">
-                <div class="q-header">
-                    <span class="q-title">Sweaty Business</span>
-                    <span class="diff diff-inter">INTER</span>
-                </div>
-                <div>
-                    <span class="section-label">Требуется:</span>
-                    <ul class="needs-list">
-                        <li>Дезодорант</li>
-                        <li>Влажные салфетки</li>
-                    </ul>
-                    <span class="section-label">Награда:</span>
+                <div class="q-header"><span class="q-title">Sweaty Business</span><span class="diff diff-inter">INTER</span></div>
+                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Дезодорант</li><li>Влажные салфетки</li></ul><span class="section-label">Награда:</span>
                     <ul class="rewards">
                         <li>Рыбацкий жилет</li>
                         <li>Удочка</li>
@@ -158,42 +171,16 @@
             <div class="trader-info"><h2>Доктор</h2><p>Локация: School (Школа)</p></div>
         </div>
         <div class="quest-grid">
-            <div class="quest-card" id="q_11">
-                <div class="q-header" onclick="openQuestHelp('Nasty Draft', 'Бывший учитель ОБЖ латает щели в окнах школы, чтобы спасти пациентов клиники от холода.', null, null)">
-                    <span class="q-title-clickable">Nasty Draft</span>
-                    <span class="diff diff-easy">EASY</span>
-                </div>
-                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Армированный скотч</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Салфетки</li></ul></div>
-                <button class="status-btn" onclick="toggleQ('q_11')">ВЫПОЛНЕНО</button>
-            </div>
-            <div class="quest-card" id="q_12">
-                <div class="q-header" onclick="openQuestHelp('Steady Hands', 'Доктору нужно унять дрожь в руках перед операциями. Секрет от Снабженца.', null, null)">
-                    <span class="q-title-clickable">Steady Hands</span>
-                    <span class="diff diff-easy">EASY</span>
-                </div>
-                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Сигары</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Термоодеяло</li></ul></div>
-                <button class="status-btn" onclick="toggleQ('q_12')">ВЫПОЛНЕНО</button>
-            </div>
-            <div class="quest-card" id="q_13">
-                <div class="q-header" onclick="openQuestHelp('Bookworm', 'Доктор коротает время между пациентами за чтением любой литературы.', null, null)">
-                    <span class="q-title-clickable">Bookworm</span>
-                    <span class="diff diff-easy">EASY</span>
-                </div>
-                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Книга (Детская)</li><li>Книга (Кулинарная)</li><li>Книга (О рыбалке)</li><li>Книга (Религиозная)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Медицинский шкаф</li></ul></div>
-                <button class="status-btn" onclick="toggleQ('q_13')">ВЫПОЛНЕНО</button>
-            </div>
-            <div class="quest-card" id="q_14">
-                <div class="q-header" onclick="openQuestHelp('Dice Master', 'Доктор подозревает Снабженца в мошенничестве и хочет свой набор для игры.', null, null)">
-                    <span class="q-title-clickable">Dice Master</span>
-                    <span class="diff diff-easy">EASY</span>
-                </div>
-                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Настольная игра</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Шкафчик</li><li>Тележка</li></ul></div>
-                <button class="status-btn" onclick="toggleQ('q_14')">ВЫПОЛНЕНО</button>
-            </div>
+            <div class="quest-card" id="q_11"><div class="q-header"><span class="q-title">Nasty Draft</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Армированный скотч</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Салфетки</li></ul></div><button class="status-btn" onclick="toggleQ('q_11')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_12"><div class="q-header"><span class="q-title">Steady Hands</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Сигары</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Термоодеяло</li></ul></div><button class="status-btn" onclick="toggleQ('q_12')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_13"><div class="q-header"><span class="q-title">Bookworm</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Книга (Детская)</li><li>Книга (Кулинарная)</li><li>Книга (О рыбалке)</li><li>Книга (Религиозная)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Медицинский шкаф</li></ul></div><button class="status-btn" onclick="toggleQ('q_13')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_14"><div class="q-header"><span class="q-title">Dice Master</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Настольная игра</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Шкафчик</li><li>Тележка</li></ul></div><button class="status-btn" onclick="toggleQ('q_14')">ВЫПОЛНЕНО</button></div>
+            
             <div class="quest-card" id="q_15"><div class="q-header"><span class="q-title">Night Surgery</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Налобный фонарь</li><li>Батарейки</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Энергетик</li></ul></div><button class="status-btn" onclick="toggleQ('q_15')">ВЫПОЛНЕНО</button></div>
             <div class="quest-card" id="q_16"><div class="q-header"><span class="q-title">Infections</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Антисептик</li><li>Антибиотики</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Бинт</li><li>Тряпки</li><li>Обезболивающее</li></ul></div><button class="status-btn" onclick="toggleQ('q_16')">ВЫПОЛНЕНО</button></div>
             <div class="quest-card" id="q_17"><div class="q-header"><span class="q-title">Hypovolemia</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Физраствор (3 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Гидрозатвор</li></ul></div><button class="status-btn" onclick="toggleQ('q_17')">ВЫПОЛНЕНО</button></div>
             <div class="quest-card" id="q_18"><div class="q-header"><span class="q-title">Mouth Organ</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Губная гармошка</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Аптечка (3 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_18')">ВЫПОЛНЕНО</button></div>
+            
             <div class="quest-card" id="q_19">
                 <div class="q-header" onclick="openQuestHelp('Patient Report', 'Нужно забрать отчет из школьного спортзала. Там был пункт экстренной помощи.', 'gymn-cor.jpg', 'gymn.jpg')">
                     <span class="q-title-clickable">Patient Report</span>
@@ -213,7 +200,7 @@
             const config = [{l:'label1',c:'imgCont1',s:img1,t:"ЗДАНИЕ:"},{l:'label2',c:'imgCont2',s:img2,t:"КОРИДОР:"},{l:'label3',c:'imgCont3',s:img3,t:"КАБИНЕТ:"}];
             config.forEach(item => {
                 const box = document.getElementById(item.l).parentElement;
-                if(item.s) { box.style.display = 'flex'; document.getElementById(item.l).innerText = item.t; document.getElementById(item.c).innerHTML = `<img src="${item.s}" class="location-img">`; }
+                if(item.s) { box.style.display = 'flex'; document.getElementById(item.l).innerText = item.t; document.getElementById(item.c).innerHTML = `<img src="${item.s}">`; }
                 else { box.style.display = 'none'; }
             });
             document.getElementById('traderModal').style.display = 'block';
@@ -245,32 +232,24 @@
         }
 
         function changeCount(btn, val) {
-            const li = btn.closest('li');
-            const span = li.querySelector('.count-val');
-            const target = parseInt(li.dataset.target);
+            const li = btn.closest('li'); const span = li.querySelector('.count-val'); const target = parseInt(li.dataset.target);
             let current = Math.max(0, Math.min(target, parseInt(span.innerText) + val));
-            
             span.innerText = current;
             localStorage.setItem(li.closest('.quest-card').id + '_count', current);
-            
-            if(current === target) li.classList.add('item-found'); 
-            else li.classList.remove('item-found');
+            if(current === target) li.classList.add('item-found'); else li.classList.remove('item-found');
         }
 
         function setupChecklist() {
             document.querySelectorAll('.needs-list li').forEach((li, index) => {
                 const qId = li.closest('.quest-card').id;
-                
                 if(li.classList.contains('has-counter')) {
                     const saved = localStorage.getItem(qId + '_count') || 0;
-                    const target = parseInt(li.dataset.target);
                     li.querySelector('.count-val').innerText = saved;
-                    if(parseInt(saved) === target) li.classList.add('item-found');
-
+                    if(parseInt(saved) === parseInt(li.dataset.target)) li.classList.add('item-found');
                     li.onclick = function(e) {
                         if (e.target.tagName === 'BUTTON') return;
-                        const isDone = this.classList.contains('item-found');
-                        const newVal = isDone ? 0 : target;
+                        const target = parseInt(this.dataset.target);
+                        const newVal = this.classList.contains('item-found') ? 0 : target;
                         this.querySelector('.count-val').innerText = newVal;
                         localStorage.setItem(qId + '_count', newVal);
                         this.classList.toggle('item-found');
@@ -289,12 +268,9 @@
         function updateStats() {
             const total = document.querySelectorAll('.quest-card').length;
             const done = document.querySelectorAll('.quest-card.completed').length;
-            const tEl = document.getElementById('total-q');
-            const dEl = document.getElementById('done-q');
-            const lEl = document.getElementById('left-q');
-            if(tEl) tEl.innerText = total;
-            if(dEl) dEl.innerText = done;
-            if(lEl) lEl.innerText = total - done;
+            document.getElementById('total-q').innerText = total;
+            document.getElementById('done-q').innerText = done;
+            document.getElementById('left-q').innerText = total - done;
         }
 
         function initApp() {

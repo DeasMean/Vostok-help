@@ -25,7 +25,7 @@
         .stats-panel { background: #1a1a1a; padding: 10px; border: 1px solid var(--border); font-size: 0.8rem; min-width: 150px; }
         .stats-panel span { color: var(--primary); font-weight: bold; }
 
-        .filter-btn { background: none; border: 1px solid #444; color: #444; padding: 5px 12px; font-size: 0.7rem; cursor: pointer; transition: 0.2s; margin-top: 5px; text-transform: uppercase; }
+        .filter-btn { background: none; border: 1px solid #444; color: #444; padding: 5px 12px; font-size: 0.7rem; cursor: pointer; transition: 0.2s; margin-top: 5px; text-transform: uppercase; font-family: inherit; }
         .filter-btn:hover, .filter-btn.active { border-color: var(--primary); color: var(--primary); }
         .filter-btn.active { background: rgba(242, 169, 0, 0.1); }
 
@@ -34,7 +34,7 @@
         .trader-info h2 { color: var(--primary); margin: 0; text-transform: uppercase; font-size: 1.6rem; }
 
         .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
-        .quest-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; min-height: 350px; transition: 0.2s; }
+        .quest-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; min-height: 380px; transition: 0.2s; }
         .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
         .q-title { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
         .q-title-clickable { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(242, 169, 0, 0.3); }
@@ -57,7 +57,7 @@
         .rewards { color: #fff; list-style-type: circle; }
         .rewards li { margin-bottom: 2px; }
 
-        .status-btn { margin-top: auto; background: none; border: 1px solid var(--primary); color: var(--primary); padding: 10px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
+        .status-btn { margin-top: auto; background: none; border: 1px solid var(--primary); color: var(--primary); padding: 10px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; font-family: inherit; }
         .status-btn:hover { background: var(--primary); color: #000; }
         .completed { opacity: 0.2; filter: grayscale(1); pointer-events: none; }
         .completed .status-btn { pointer-events: auto; }
@@ -116,7 +116,29 @@
             <div class="quest-card" id="q_2"><div class="q-header"><span class="q-title">Bad Habits</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Сигареты (1 пачка)</li><li>Спички (20 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Будильник</li></ul></div><button class="status-btn" onclick="toggleQ('q_2')">ВЫПОЛНЕНО</button></div>
             <div class="quest-card" id="q_3"><div class="q-header"><span class="q-title">Backpains</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Подушка</li><li>Лосьон</li><li>Обезболивающее</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Фонарик</li></ul></div><button class="status-btn" onclick="toggleQ('q_3')">ВЫПОЛНЕНО</button></div>
             <div class="quest-card" id="q_4"><div class="q-header"><span class="q-title">Coffee Reserve</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Кофе</li><li>Кофейный фильтр</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Карта</li></ul></div><button class="status-btn" onclick="toggleQ('q_4')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_5"><div class="q-header"><span class="q-title">Sweaty Business</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Дезодорант</li><li>Влажные салфетки</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Жилет</li></ul></div><button class="status-btn" onclick="toggleQ('q_5')">ВЫПОЛНЕНО</button></div>
+            
+            <div class="quest-card" id="q_5">
+                <div class="q-header">
+                    <span class="q-title">Sweaty Business</span>
+                    <span class="diff diff-inter">INTER</span>
+                </div>
+                <div>
+                    <span class="section-label">Требуется:</span>
+                    <ul class="needs-list">
+                        <li>Дезодорант</li>
+                        <li>Влажные салфетки</li>
+                    </ul>
+                    <span class="section-label">Награда:</span>
+                    <ul class="rewards">
+                        <li>Рыбацкий жилет</li>
+                        <li>Удочка</li>
+                        <li>Ящик для снастей</li>
+                        <li>Нож Jaeger 140</li>
+                    </ul>
+                </div>
+                <button class="status-btn" onclick="toggleQ('q_5')">ВЫПОЛНЕНО</button>
+            </div>
+
             <div class="quest-card" id="q_6"><div class="q-header"><span class="q-title">Handyman</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Пиломатериалы</li><li>Ящик с инструментами</li><li>Ведро</li><li>Изолента</li><li>Гвозди</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Офисный стол</li><li>Офисный шкаф</li><li>Офисный стул</li><li>Персидский ковер</li></ul></div><button class="status-btn" onclick="toggleQ('q_6')">ВЫПОЛНЕНО</button></div>
             
             <div class="quest-card" id="q_7">
@@ -223,25 +245,32 @@
         }
 
         function changeCount(btn, val) {
-            const li = btn.closest('li'); const span = li.querySelector('.count-val'); const target = parseInt(li.dataset.target);
+            const li = btn.closest('li');
+            const span = li.querySelector('.count-val');
+            const target = parseInt(li.dataset.target);
             let current = Math.max(0, Math.min(target, parseInt(span.innerText) + val));
+            
             span.innerText = current;
             localStorage.setItem(li.closest('.quest-card').id + '_count', current);
-            if(current === target) li.classList.add('item-found'); else li.classList.remove('item-found');
+            
+            if(current === target) li.classList.add('item-found'); 
+            else li.classList.remove('item-found');
         }
 
         function setupChecklist() {
             document.querySelectorAll('.needs-list li').forEach((li, index) => {
                 const qId = li.closest('.quest-card').id;
+                
                 if(li.classList.contains('has-counter')) {
                     const saved = localStorage.getItem(qId + '_count') || 0;
+                    const target = parseInt(li.dataset.target);
                     li.querySelector('.count-val').innerText = saved;
-                    if(parseInt(saved) === parseInt(li.dataset.target)) li.classList.add('item-found');
+                    if(parseInt(saved) === target) li.classList.add('item-found');
 
                     li.onclick = function(e) {
                         if (e.target.tagName === 'BUTTON') return;
                         const isDone = this.classList.contains('item-found');
-                        const newVal = isDone ? 0 : parseInt(this.dataset.target);
+                        const newVal = isDone ? 0 : target;
                         this.querySelector('.count-val').innerText = newVal;
                         localStorage.setItem(qId + '_count', newVal);
                         this.classList.toggle('item-found');
@@ -260,9 +289,12 @@
         function updateStats() {
             const total = document.querySelectorAll('.quest-card').length;
             const done = document.querySelectorAll('.quest-card.completed').length;
-            document.getElementById('total-q').innerText = total;
-            document.getElementById('done-q').innerText = done;
-            document.getElementById('left-q').innerText = total - done;
+            const tEl = document.getElementById('total-q');
+            const dEl = document.getElementById('done-q');
+            const lEl = document.getElementById('left-q');
+            if(tEl) tEl.innerText = total;
+            if(dEl) dEl.innerText = done;
+            if(lEl) lEl.innerText = total - done;
         }
 
         function initApp() {

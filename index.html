@@ -36,7 +36,6 @@
         .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
         .quest-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; min-height: 350px; transition: 0.2s; }
         .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-        
         .q-title { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
         .q-title-clickable { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(242, 169, 0, 0.3); }
 
@@ -48,15 +47,16 @@
         .section-label { color: #666; font-size: 0.7rem; text-transform: uppercase; margin-top: 8px; display: block; }
         ul { margin: 4px 0; padding-left: 1.1rem; list-style-type: square; font-size: 0.85rem; }
         
-        .needs-list li { margin-bottom: 5px; transition: 0.2s; }
-        .needs-list li:not(.has-counter) { cursor: pointer; }
+        .needs-list li { margin-bottom: 8px; transition: 0.2s; cursor: pointer; user-select: none; }
         .needs-list li.item-found { color: #444; text-decoration: line-through; }
         
         .counter-controls { display: inline-flex; align-items: center; gap: 5px; margin-left: 10px; background: #222; padding: 2px 5px; border-radius: 3px; vertical-align: middle; }
-        .counter-controls button { background: var(--primary); border: none; color: #000; width: 18px; height: 18px; cursor: pointer; font-weight: bold; font-size: 12px; line-height: 1; padding: 0; }
-        .count-val { color: #fff; font-weight: bold; min-width: 12px; text-align: center; }
+        .counter-controls button { background: var(--primary); border: none; color: #000; width: 20px; height: 20px; cursor: pointer; font-weight: bold; font-size: 14px; line-height: 1; padding: 0; }
+        .count-val { color: #fff; font-weight: bold; min-width: 15px; text-align: center; }
 
-        .rewards { color: #fff; }
+        .rewards { color: #fff; list-style-type: circle; }
+        .rewards li { margin-bottom: 2px; }
+
         .status-btn { margin-top: auto; background: none; border: 1px solid var(--primary); color: var(--primary); padding: 10px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
         .status-btn:hover { background: var(--primary); color: #000; }
         .completed { opacity: 0.2; filter: grayscale(1); pointer-events: none; }
@@ -112,64 +112,75 @@
             <div class="trader-info"><h2>Снабженец</h2><p>Локация: Village (Деревня)</p></div>
         </div>
         <div class="quest-grid">
-            <div class="quest-card" id="q_1"><div class="q-header"><span class="q-title">Prime Time</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Туалетная бумага (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Телевизор (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_1')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_2"><div class="q-header"><span class="q-title">Bad Habits</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Сигареты (1 пачка)</li><li>Спички (20 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Будильник (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_2')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_3"><div class="q-header"><span class="q-title">Backpains</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Подушка (1 шт.)</li><li>Лосьон (1 шт.)</li><li>Обезболивающее (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Фонарик (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_3')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_4"><div class="q-header"><span class="q-title">Coffee Reserve</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Кофе (1 шт.)</li><li>Кофейный фильтр (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Карта (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_4')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_5"><div class="q-header"><span class="q-title">Sweaty Business</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Дезодорант (1 шт.)</li><li>Влажные салфетки (1 пачка)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Жилет (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_5')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_1"><div class="q-header"><span class="q-title">Prime Time</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Туалетная бумага (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Телевизор</li></ul></div><button class="status-btn" onclick="toggleQ('q_1')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_2"><div class="q-header"><span class="q-title">Bad Habits</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Сигареты (1 пачка)</li><li>Спички (20 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Будильник</li></ul></div><button class="status-btn" onclick="toggleQ('q_2')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_3"><div class="q-header"><span class="q-title">Backpains</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Подушка</li><li>Лосьон</li><li>Обезболивающее</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Фонарик</li></ul></div><button class="status-btn" onclick="toggleQ('q_3')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_4"><div class="q-header"><span class="q-title">Coffee Reserve</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Кофе</li><li>Кофейный фильтр</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Карта</li></ul></div><button class="status-btn" onclick="toggleQ('q_4')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_5"><div class="q-header"><span class="q-title">Sweaty Business</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Дезодорант</li><li>Влажные салфетки</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Жилет</li></ul></div><button class="status-btn" onclick="toggleQ('q_5')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_6"><div class="q-header"><span class="q-title">Handyman</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Пиломатериалы</li><li>Ящик с инструментами</li><li>Ведро</li><li>Изолента</li><li>Гвозди</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Офисный стол</li><li>Офисный шкаф</li><li>Офисный стул</li><li>Персидский ковер</li></ul></div><button class="status-btn" onclick="toggleQ('q_6')">ВЫПОЛНЕНО</button></div>
             
-            <div class="quest-card" id="q_6"><div class="q-header"><span class="q-title">Handyman</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Пиломатериалы (Lumber)</li><li>Ящик с инструментами</li><li>Ведро (Bucket)</li><li>Изолента (Duct Tape)</li><li>Гвозди (Nails)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Мебель (Стол, Шкаф, Стул, Ковер)</li></ul></div><button class="status-btn" onclick="toggleQ('q_6')">ВЫПОЛНЕНО</button></div>
-
             <div class="quest-card" id="q_7">
                 <div class="q-header"><span class="q-title">Heavy Lifting</span><span class="diff diff-hard">HARD</span></div>
-                <div>
-                    <span class="section-label">Требуется:</span>
-                    <ul class="needs-list">
-                        <li class="has-counter" data-target="6">
-                            Пиво (Beer)
-                            <div class="counter-controls">
-                                <button onclick="changeCount(this, -1)">-</button>
-                                <span class="count-val">0</span>/6
-                                <button onclick="changeCount(this, 1)">+</button>
-                            </div>
-                        </li>
-                    </ul>
-                    <span class="section-label">Награда:</span>
-                    <ul class="rewards"><li>Винтовка Мосина (Mosin)</li><li>ПУ Прицел + Патроны</li></ul>
-                </div>
+                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li class="has-counter" data-target="6">Пиво <div class="counter-controls"><button onclick="changeCount(this, -1)">-</button><span class="count-val">0</span>/6<button onclick="changeCount(this, 1)">+</button></div></li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Винтовка Мосина</li><li>Прицел ПУ</li><li>Патроны 7.62x54R (3 пачки)</li></ul></div>
                 <button class="status-btn" onclick="toggleQ('q_7')">ВЫПОЛНЕНО</button>
             </div>
 
-            <div class="quest-card" id="q_8"><div class="q-header"><span class="q-title">Long Range</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>KP-31 (1 шт.)</li><li>Барабанный магазин (Drum)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Винтовка M78 + Магазин</li><li>Патроны .308</li></ul></div><button class="status-btn" onclick="toggleQ('q_8')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_9"><div class="q-header"><span class="q-title">Night Shift</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Аккумулятор</li><li>Провода прикуривания</li><li>Инвертор</li><li>Канистра</li><li>Масляный фильтр</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Плеер + Кассета</li></ul></div><button class="status-btn" onclick="toggleQ('q_9')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_10"><div class="q-header"><span class="q-title">The Collector</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Килью (Kilju) — 1 канистра</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Ключ от чердака (Attic Key)</li></ul></div><button class="status-btn" onclick="toggleQ('q_10')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_8"><div class="q-header"><span class="q-title">Long Range</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Пистолет-пулемет KP-31</li><li>Барабанный магазин</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Винтовка M78</li><li>Магазин M78</li><li>Патроны .308 (30 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_8')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_9"><div class="q-header"><span class="q-title">Night Shift</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Аккумулятор</li><li>Провода прикуривания</li><li>Инвертор</li><li>Канистра</li><li>Масляный фильтр</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Плеер</li><li>Кассета (Radio Hits)</li></ul></div><button class="status-btn" onclick="toggleQ('q_9')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_10"><div class="q-header"><span class="q-title">The Collector</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Килью (1 канистра)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Ключ от чердака</li></ul></div><button class="status-btn" onclick="toggleQ('q_10')">ВЫПОЛНЕНО</button></div>
         </div>
 
-        <!-- ТОРГОВЕЦ: ДОКТОР -->
+        <!-- ДОКТОР -->
         <div class="trader-header" onclick="openTrader('Доктор', 'Локация: School (Школа, 3 этаж)', 'school-trader.png', 'coridor-doctor.png', 'cabinet-doctor.png')">
             <img src="doctor.png" alt="Доктор" class="trader-portrait">
             <div class="trader-info"><h2>Доктор</h2><p>Локация: School (Школа)</p></div>
         </div>
         <div class="quest-grid">
-            <div class="quest-card" id="q_11"><div class="q-header"><span class="q-title">Medical Supply</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Бинт (3 шт.)</li><li>Шприц (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Аптечка (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_11')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_12"><div class="q-header"><span class="q-title">Hygiene</span><span class="diff diff-easy">EASY</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Мыло (2 шт.)</li><li>Полотенце (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Витамины (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_12')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_13"><div class="q-header"><span class="q-title">The Surgeon</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Скальпель (1 шт.)</li><li>Спирт (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Хирургический набор (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_13')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_14"><div class="q-header"><span class="q-title">Lab Equipment</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Микроскоп (1 шт.)</li><li>Реагенты (2 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Инъектор (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_14')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_15"><div class="q-header"><span class="q-title">Night Surgery</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Налобный фонарь (1 шт.)</li><li>Батарейки (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Энергетик (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_15')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_16"><div class="q-header"><span class="q-title">Infections</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Антисептик (1 шт.)</li><li>Антибиотики (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Бинт, Тряпки, Обезбол.</li></ul></div><button class="status-btn" onclick="toggleQ('q_16')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_17"><div class="q-header"><span class="q-title">Hypovolemia</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Физраствор (3 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Гидрозатвор (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_17')">ВЫПОЛНЕНО</button></div>
-            <div class="quest-card" id="q_18"><div class="q-header"><span class="q-title">Mouth Organ</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Губная гармошка (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Аптечка (3 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_18')">ВЫПОЛНЕНО</button></div>
-            
+            <div class="quest-card" id="q_11">
+                <div class="q-header" onclick="openQuestHelp('Nasty Draft', 'Бывший учитель ОБЖ латает щели в окнах школы, чтобы спасти пациентов клиники от холода.', null, null)">
+                    <span class="q-title-clickable">Nasty Draft</span>
+                    <span class="diff diff-easy">EASY</span>
+                </div>
+                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Армированный скотч</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Салфетки</li></ul></div>
+                <button class="status-btn" onclick="toggleQ('q_11')">ВЫПОЛНЕНО</button>
+            </div>
+            <div class="quest-card" id="q_12">
+                <div class="q-header" onclick="openQuestHelp('Steady Hands', 'Доктору нужно унять дрожь в руках перед операциями. Секрет от Снабженца.', null, null)">
+                    <span class="q-title-clickable">Steady Hands</span>
+                    <span class="diff diff-easy">EASY</span>
+                </div>
+                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Сигары</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Термоодеяло</li></ul></div>
+                <button class="status-btn" onclick="toggleQ('q_12')">ВЫПОЛНЕНО</button>
+            </div>
+            <div class="quest-card" id="q_13">
+                <div class="q-header" onclick="openQuestHelp('Bookworm', 'Доктор коротает время между пациентами за чтением любой литературы.', null, null)">
+                    <span class="q-title-clickable">Bookworm</span>
+                    <span class="diff diff-easy">EASY</span>
+                </div>
+                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Книга (Детская)</li><li>Книга (Кулинарная)</li><li>Книга (О рыбалке)</li><li>Книга (Религиозная)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Медицинский шкаф</li></ul></div>
+                <button class="status-btn" onclick="toggleQ('q_13')">ВЫПОЛНЕНО</button>
+            </div>
+            <div class="quest-card" id="q_14">
+                <div class="q-header" onclick="openQuestHelp('Dice Master', 'Доктор подозревает Снабженца в мошенничестве и хочет свой набор для игры.', null, null)">
+                    <span class="q-title-clickable">Dice Master</span>
+                    <span class="diff diff-easy">EASY</span>
+                </div>
+                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Настольная игра</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Шкафчик</li><li>Тележка</li></ul></div>
+                <button class="status-btn" onclick="toggleQ('q_14')">ВЫПОЛНЕНО</button>
+            </div>
+            <div class="quest-card" id="q_15"><div class="q-header"><span class="q-title">Night Surgery</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Налобный фонарь</li><li>Батарейки</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Энергетик</li></ul></div><button class="status-btn" onclick="toggleQ('q_15')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_16"><div class="q-header"><span class="q-title">Infections</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Антисептик</li><li>Антибиотики</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Бинт</li><li>Тряпки</li><li>Обезболивающее</li></ul></div><button class="status-btn" onclick="toggleQ('q_16')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_17"><div class="q-header"><span class="q-title">Hypovolemia</span><span class="diff diff-inter">INTER</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Физраствор (3 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Гидрозатвор</li></ul></div><button class="status-btn" onclick="toggleQ('q_17')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_18"><div class="q-header"><span class="q-title">Mouth Organ</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Губная гармошка</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Аптечка (3 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_18')">ВЫПОЛНЕНО</button></div>
             <div class="quest-card" id="q_19">
-                <div class="q-header" onclick="openQuestHelp('Patient Report', 'Для входа требуется Gymnasium key. В зале будет лежать папка с отчетом.', 'gymn-cor.jpg', 'gymn.jpg')">
+                <div class="q-header" onclick="openQuestHelp('Patient Report', 'Нужно забрать отчет из школьного спортзала. Там был пункт экстренной помощи.', 'gymn-cor.jpg', 'gymn.jpg')">
                     <span class="q-title-clickable">Patient Report</span>
                     <span class="diff diff-hard">HARD</span>
                 </div>
-                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Отчет о пациенте (1 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Аптечка AFAK (1 шт.)</li></ul></div>
+                <div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Отчет о пациенте</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Аптечка AFAK</li><li>Плакат о правильной осанке</li></ul></div>
                 <button class="status-btn" onclick="toggleQ('q_19')">ВЫПОЛНЕНО</button>
             </div>
-
-            <div class="quest-card" id="q_20"><div class="q-header"><span class="q-title">Substance</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Образец нефти (3 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Ключ от класса (1 шт.)</li></ul></div><button class="status-btn" onclick="toggleQ('q_20')">ВЫПОЛНЕНО</button></div>
+            <div class="quest-card" id="q_20"><div class="q-header"><span class="q-title">Substance</span><span class="diff diff-hard">HARD</span></div><div><span class="section-label">Требуется:</span><ul class="needs-list"><li>Образец нефти (3 шт.)</li></ul><span class="section-label">Награда:</span><ul class="rewards"><li>Ключ от класса</li></ul></div><button class="status-btn" onclick="toggleQ('q_20')">ВЫПОЛНЕНО</button></div>
         </div>
     </main>
 
@@ -188,7 +199,7 @@
 
         function openQuestHelp(title, desc, img1, img2) {
             openTrader(title, desc, img1, img2, null);
-            document.getElementById('label1').innerText = "ГДЕ НАЙТИ:"; document.getElementById('label2').innerText = "ОБЪЕКТ:";
+            document.getElementById('label1').innerText = "ИНФО:"; document.getElementById('label2').innerText = "ЛОКАЦИЯ:";
         }
 
         function closeModal() { document.getElementById('traderModal').style.display = 'none'; }
@@ -226,13 +237,22 @@
                     const saved = localStorage.getItem(qId + '_count') || 0;
                     li.querySelector('.count-val').innerText = saved;
                     if(parseInt(saved) === parseInt(li.dataset.target)) li.classList.add('item-found');
+
+                    li.onclick = function(e) {
+                        if (e.target.tagName === 'BUTTON') return;
+                        const isDone = this.classList.contains('item-found');
+                        const newVal = isDone ? 0 : parseInt(this.dataset.target);
+                        this.querySelector('.count-val').innerText = newVal;
+                        localStorage.setItem(qId + '_count', newVal);
+                        this.classList.toggle('item-found');
+                    };
                 } else {
                     const itemId = qId + '_item_' + index;
                     if(localStorage.getItem(itemId) === 'found') li.classList.add('item-found');
-                    li.onclick = function(e) {
-                        e.stopPropagation(); this.classList.toggle('item-found');
+                    li.onclick = function() {
+                        this.classList.toggle('item-found');
                         localStorage.setItem(itemId, this.classList.contains('item-found') ? 'found' : 'not_found');
-                    }
+                    };
                 }
             });
         }

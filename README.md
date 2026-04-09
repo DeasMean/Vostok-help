@@ -1,6 +1,6 @@
 # 🌲 Vostok-Help | 
 
-[🔗 ОТКРЫТЬ БАЗУ ЗНАНИЙ](https://github.io)
+[🔗 ОТКРЫТЬ БАЗУ ЗНАНИЙ]([https://github.io](https://deasmean.github.io/Vostok-help/))
 
 ---
 

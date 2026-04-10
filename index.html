@@ -4,62 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road to Vostok | Database</title>
-<style>
-    :root { --primary: #f2a900; --bg: #0b0b0b; --card-bg: #161616; --text: #b0b0b0; --border: #2a2a2a; --easy: #00ff00; --inter: #ff8c00; --hard: #ff4444; }
-    * { box-sizing: border-box; transition: 0.2s; }
-    body { background: var(--bg); color: var(--text); font-family: 'Courier New', Courier, monospace; margin: 0; padding: 1rem; line-height: 1.4; }
-    header { border-bottom: 2px solid var(--primary); margin-bottom: 2rem; padding-bottom: 1rem; }
-    h1 { color: var(--primary); font-size: 1.4rem; text-transform: uppercase; margin: 0; }
-    .nav-bar { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; align-items: center; }
-    .tab-btn { background: none; border: 1px solid #444; color: #444; padding: 8px 20px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-family: inherit; }
-    .tab-btn.active { border-color: var(--primary); color: #000; background: var(--primary); }
-    .filter-btn { background: none; border: 1px solid #444; color: #444; padding: 5px 12px; font-size: 0.7rem; cursor: pointer; text-transform: uppercase; font-family: inherit; }
-    .filter-btn.active { background: rgba(242, 169, 0, 0.1); border-color: var(--primary); color: var(--primary); }
-    .stats-panel { background: #1a1a1a; padding: 10px; border: 1px solid var(--border); font-size: 0.8rem; margin-top: 15px; display: inline-block; }
-    .stats-panel span { color: var(--primary); font-weight: bold; }
-    .trader-header { display: flex; align-items: center; gap: 25px; background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(26,26,26,0) 100%); padding: 15px; border-left: 5px solid var(--primary); margin: 2rem 0 1rem 0; cursor: pointer; }
-    .trader-portrait { width: 100px; height: 100px; border: 2px solid var(--primary); object-fit: cover; object-position: top; background: #222; }
-    .trader-info h2 { color: var(--primary); margin: 0; text-transform: uppercase; font-size: 1.4rem; }
-    .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
-    .quest-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; min-height: 400px; }
-    .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-    .q-title { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; }
-    .diff { font-size: 0.65rem; font-weight: bold; padding: 2px 5px; border: 1px solid currentColor; }
-    .diff-easy { color: var(--easy); } .diff-inter { color: var(--inter); } .diff-hard { color: var(--hard); }
-    .needs-list li, .rewards-list li { font-size: 0.8rem; margin-bottom: 5px; }
-    .item-found { color: #444; text-decoration: line-through; }
-    .counter-controls { display: inline-flex; align-items: center; gap: 5px; margin-left: 5px; background: #222; padding: 2px 5px; border-radius: 3px; }
-    .counter-controls button { background: var(--primary); border: none; color: #000; width: 18px; height: 18px; cursor: pointer; font-weight: bold; }
-    .status-btn { margin-top: auto; background: none; border: 1px solid var(--primary); color: var(--primary); padding: 10px; cursor: pointer; font-weight: bold; width: 100%; font-family: inherit; }
-    .status-btn:hover { background: var(--primary); color: #000; }
-    .completed { opacity: 0.2; filter: grayscale(1); }
-    .completed .status-btn { pointer-events: auto; }
-    .event-card { background: #161616; border: 1px solid #2a2a2a; padding: 15px; margin-bottom: 10px; cursor: pointer; }
-    .event-card:hover { border-color: var(--primary); }
-    .event-card b { color: var(--primary); }
-    .toggle-icon { color: var(--primary); font-weight: bold; }
-    .event-desc { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; color: #888; font-size: 0.85rem; }
-    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); }
-    .modal-content { background: var(--card-bg); margin: 5% auto; padding: 25px; border: 1px solid var(--primary); width: 90%; max-width: 1000px; position: relative; max-height: 85vh; overflow-y: auto; }
-    .close-modal { position: absolute; right: 20px; top: 15px; color: var(--primary); font-size: 2.5rem; cursor: pointer; }
-    .q-title-clickable {
-    color: var(--primary);
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(242, 169, 0, 0.3); /* Полупрозрачная линия */
-}
-
-.q-title-clickable:hover {
-    color: #fff;
-    text-decoration-color: var(--primary); /* Линия становится яркой при наведении */
-}
-
-</style>
-
+    <style>
+        :root { --primary: #f2a900; --bg: #0b0b0b; --card-bg: #161616; --text: #b0b0b0; --border: #2a2a2a; --easy: #00ff00; --inter: #ff8c00; --hard: #ff4444; }
+        * { box-sizing: border-box; transition: 0.2s; }
+        body { background: var(--bg); color: var(--text); font-family: 'Courier New', Courier, monospace; margin: 0; padding: 1rem; line-height: 1.4; }
+        header { border-bottom: 2px solid var(--primary); margin-bottom: 2rem; padding-bottom: 1rem; }
+        h1 { color: var(--primary); font-size: 1.4rem; text-transform: uppercase; margin: 0; }
+        .nav-bar { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; align-items: center; }
+        .tab-btn { background: none; border: 1px solid #444; color: #444; padding: 8px 20px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-family: inherit; }
+        .tab-btn.active { border-color: var(--primary); color: #000; background: var(--primary); }
+        .filter-btn { background: none; border: 1px solid #444; color: #444; padding: 5px 12px; font-size: 0.7rem; cursor: pointer; text-transform: uppercase; font-family: inherit; }
+        .filter-btn.active { background: rgba(242, 169, 0, 0.1); border-color: var(--primary); color: var(--primary); }
+        .stats-panel { background: #1a1a1a; padding: 10px; border: 1px solid var(--border); font-size: 0.8rem; }
+        .stats-panel span { color: var(--primary); font-weight: bold; }
+        .trader-header { display: flex; align-items: center; gap: 25px; background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(26,26,26,0) 100%); padding: 15px; border-left: 5px solid var(--primary); margin: 2rem 0 1rem 0; cursor: pointer; }
+        .trader-portrait { width: 100px; height: 100px; border: 2px solid var(--primary); object-fit: cover; object-position: top; background: #222; }
+        .trader-info h2 { color: var(--primary); margin: 0; text-transform: uppercase; font-size: 1.4rem; }
+        .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
+        .quest-card { background: var(--card-bg); border: 1px solid var(--border); padding: 1rem; display: flex; flex-direction: column; min-height: 400px; }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        .q-title-clickable { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(242, 169, 0, 0.3); }
+        .q-title-clickable:hover { color: #fff; text-decoration-color: var(--primary); }
+        .diff { font-size: 0.65rem; font-weight: bold; padding: 2px 5px; border: 1px solid currentColor; }
+        .diff-easy { color: var(--easy); } .diff-inter { color: var(--inter); } .diff-hard { color: var(--hard); }
+        .needs-list li, .rewards-list li { font-size: 0.8rem; margin-bottom: 5px; cursor: pointer; }
+        .item-found { color: #444; text-decoration: line-through; }
+        .counter-controls { display: inline-flex; align-items: center; gap: 5px; margin-left: 5px; background: #222; padding: 2px 5px; border-radius: 3px; }
+        .counter-controls button { background: var(--primary); border: none; color: #000; width: 18px; height: 18px; cursor: pointer; font-weight: bold; }
+        .status-btn { margin-top: auto; background: none; border: 1px solid var(--primary); color: var(--primary); padding: 10px; cursor: pointer; font-weight: bold; width: 100%; font-family: inherit; }
+        .status-btn:hover { background: var(--primary); color: #000; }
+        .completed { opacity: 0.2; filter: grayscale(1); }
+        .event-card { background: #161616; border: 1px solid #2a2a2a; padding: 15px; margin-bottom: 10px; cursor: pointer; }
+        .event-card:hover { border-color: var(--primary); }
+        .event-card b { color: var(--primary); }
+        .toggle-icon { color: var(--primary); font-weight: bold; }
+        .event-desc { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #222; color: #888; font-size: 0.85rem; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); }
+        .modal-content { background: var(--card-bg); margin: 5% auto; padding: 25px; border: 1px solid var(--primary); width: 90%; max-width: 1000px; position: relative; max-height: 85vh; overflow-y: auto; }
+        .close-modal { position: absolute; right: 20px; top: 15px; color: var(--primary); font-size: 2.5rem; cursor: pointer; }
+        .slider-container { width: 100%; max-width: 400px; margin: 15px 0; border: 1px solid #333; background: #000; }
+        .slider-img { width: 100%; height: 220px; object-fit: cover; display: block; border-bottom: 1px solid #222; }
+        .slider-controls { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 8px 15px !important; background: #111 !important; }
+        .slider-controls button { background: var(--primary) !important; border: none !important; color: #000 !important; padding: 5px 15px !important; cursor: pointer !important; font-weight: bold !important; font-family: inherit; font-size: 0.7rem; }
+        .slider-controls span { color: var(--primary); font-size: 0.8rem; font-weight: bold; }
+    </style>
 </head>
 <body onload="initApp()">
 
@@ -76,45 +64,26 @@
         </div>
     </div>
 
-<header>
-    <h1>VOSTOK-HELP [DATABASE]</h1>
-    
-    <!-- Навигация (Задания / Ивенты / Сложность) -->
-    <div class="nav-bar">
-        <button id="tab-q" class="tab-btn active" onclick="switchTab('q')">Задания</button>
-        <button id="tab-e" class="tab-btn" onclick="switchTab('e')">Ивенты</button>
-        
-        <div id="q-filters" style="display: flex; gap: 5px; margin-left: 10px; border-left: 1px solid #333; padding-left: 15px;">
-            <button class="filter-btn active" onclick="filterQuests('all', this)">Все</button>
-            <button class="filter-btn" onclick="filterQuests('easy', this)">Easy</button>
-            <button class="filter-btn" onclick="filterQuests('inter', this)">Inter</button>
-            <button class="filter-btn" onclick="filterQuests('hard', this)">Hard</button>
+    <header>
+        <h1>VOSTOK-HELP [DATABASE]</h1>
+        <div class="nav-bar">
+            <button id="tab-q" class="tab-btn active" onclick="switchTab('q')">Задания</button>
+            <button id="tab-e" class="tab-btn" onclick="switchTab('e')">Ивенты</button>
+            <div id="q-filters" style="display: flex; gap: 5px; margin-left: 10px; border-left: 1px solid #333; padding-left: 15px;">
+                <button class="filter-btn active" onclick="filterQuests('all', this)">Все</button>
+                <button class="filter-btn" onclick="filterQuests('easy', this)">Easy</button>
+                <button class="filter-btn" onclick="filterQuests('inter', this)">Inter</button>
+                <button class="filter-btn" onclick="filterQuests('hard', this)">Hard</button>
+            </div>
         </div>
-    </div>
-
-    <!-- Общая строка: Статистика + Поиск -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 20px;">
-        
-        <!-- Статистика (слева) -->
-        <div class="stats-panel" style="margin-top: 0;">
-            КВЕСТЫ: <span id="total-q">0</span> | ГОТОВО: <span id="done-q">0</span> | ОСТАЛОСЬ: <span id="left-q">0</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; gap: 20px;">
+            <div class="stats-panel" style="margin-top: 0;">КВЕСТЫ: <span id="total-q">0</span> | ГОТОВО: <span id="done-q">0</span> | ОСТАЛОСЬ: <span id="left-q">0</span></div>
+            <div style="position: relative; width: 350px;">
+                <input type="text" id="searchInput" placeholder="Поиск задания или предмета..." oninput="handleSearch()" list="searchHints" autocomplete="off" style="background: #1a1a1a; border: 1px solid var(--border); color: var(--primary); padding: 10px; font-family: inherit; width: 100%; outline: none; border-radius: 4px;">
+                <datalist id="searchHints"></datalist>
+            </div>
         </div>
-
-        <!-- Поиск (справа) -->
-<div style="position: relative; width: 350px;">
-    <input type="text" id="searchInput" placeholder="Поиск задания или предмета..." 
-           oninput="handleSearch()" 
-           list="searchHints"
-           autocomplete="off"
-           style="background: #1a1a1a; border: 1px solid var(--border); color: var(--primary); 
-                  padding: 10px; font-family: inherit; width: 100%; outline: none; border-radius: 4px;">
-    <datalist id="searchHints"></datalist>
-</div>
-
-
-    </div>
-</header>
-
+    </header>
 
     <main id="quests-section"></main>
     <section id="events-section" style="display:none">
@@ -129,7 +98,7 @@
             { id: 'gunsmith', name: 'Оружейник', loc: 'Outpost (Аванпост)', img: 'gunsmith.png', pics: ['gunsmith-base.png', 'gun-rack.png', 'workbench.png'] }
         ];
 
-        const questsDatabase = [
+         const questsDatabase = [
             // --- СНАБЖЕНЕЦ (GENERALIST) ---
             { id: 'q_1', trader: 'generalist', title: 'Prime Time', diff: 'easy', needs: ['Toilel Paper (Туалетная бумага)'], rewards: ['Television (Телевизор)'] },
             { id: 'q_2', trader: 'generalist', title: 'Bad Habits', diff: 'easy', needs: ['Cigarettes (Сигареты)', 'Matches (Спички) (20 шт.)'], rewards: ['Alarm Clock (Будильник)'] },
@@ -151,7 +120,7 @@
             { id: 'q_16', trader: 'doctor', title: 'Infections', diff: 'inter', needs: ['Antiseptic (Антисептик)', 'Antibiotics (Антибиотики)'], rewards: ['Bandage (Бинт)', 'Rags (Тряпки)', 'Painkill (Обезболивающее)'] },
             { id: 'q_17', trader: 'doctor', title: 'Hypovolemia', diff: 'inter', needs: ['Saline (Физраствор)'], rewards: ['Water Lock (Гидрозатвор)'], target: 3},
             { id: 'q_18', trader: 'doctor', title: 'Mouth Organ', diff: 'hard', needs: ['Harmonica (Губная гармошка)'], rewards: ['Medkit (Аптечка) (3 шт.)'] },
-            { id: 'q_19', trader: 'doctor', title: 'Patient Report', diff: 'hard', needs: ['Patient Report (Отчет о пациенте)'], rewards: ['AFAK', 'Poster (Постер)'] },
+            { id: 'q_19', trader: 'doctor', title: 'Patient Report', diff: 'hard', needs: ['Patient Report (Отчет о пациенте)'], rewards: ['AFAK'], guide: '<b style="color:var(--primary)">ГДЕ ИСКАТЬ:</b> Школа (Area 05), спортивный зал.<br><br><b style="color:var(--primary)">ИНСТРУКЦИЯ:</b> Пройдите через коридоры к спортзалу. Отчет лежит внутри. Может появится по всей территории зала.<br><br><div class="slider-container"><div class="slider-wrapper"><img id="quest-slide" src="school-trader.png" class="slider-img"></div><div class="slider-controls"><button onclick="changeQuestSlide(-1, event)">←</button><span id="q-slide-num">1 / 3</span><button onclick="changeQuestSlide(1, event)">→</button></div></div>' },
             { id: 'q_20', trader: 'doctor', title: 'Substance', diff: 'hard', needs: ['Oil Sample (Образец масла)'], rewards: ['Classroom Key (Ключ от класса)'], target: 3},
 
             // --- ОРУЖЕЙНИК (GUNSMITH) ---
@@ -168,146 +137,94 @@
         ];
 
 const eventsData = [
-    { 
-        day: 1, 
-        title: 'Generalist Returns to Village (Снабженец вернуля в Деревню)', 
-        place: 'Village (Деревня)',
-        chance: 'Гарантировано',
-        desc: 'Снабженец — мастер на все руки, открывший магазин в старом гараже. После короткого перерыва он снова в деле и готов продавать товары общего назначения.' 
-    },
-    { 
-        day: 2, 
-        title: 'Doctor Returns to School (Доктор вернулся в Школу)', 
-        place: 'School (Школа)',
-        chance: 'Гарантировано',
-        desc: 'Доктор вернулся в свою импровизированную клинику. Он отлучался, чтобы проведать бабушку, но теперь снова готов лечить выживших и продавать медикаменты.' 
-    },
-    { 
-        day: 3, 
-        title: 'Fighter Jets (Реактивные истребители)', 
-        place: 'Area 05 (Зона 05)',
-        chance: '~25%',
-        desc: 'Финские военные проводят демонстрацию силы. В небе часто появляются истребители, совершающие громкие нелетальные облеты Зоны 05.' 
-    },
-    { 
-        day: 4, 
-        title: 'Missing Cat (Потерянный кот)', 
-        place: 'Outpost (Аванпост)',
-        chance: 'Гарантировано',
-        desc: 'Кот бабушки сбежал, испугавшись шума истребителя. Позже его нашли кочевники, но в итоге коробку с котом бросили бандиты где-то на Аванпосте.' 
-    },
-    { 
-        day: 5, 
-        title: 'Punisher arrives to Area 05 (Каратель прибывает в Зону 05)', 
-        place: 'Area 05 (Зона 05)',
-        chance: '~10%',
-        desc: 'Криминальный авторитет Каратель угнал полицейский фургон и патрулирует территорию со своей бандой. Встреча с ними крайне опасна.' 
-    },
-    { 
-        day: 6, 
-        title: 'Airdrops Delivered (Доставка воздушной поддержки)', 
-        place: 'Area 05 (Зона 05)',
-        chance: '~10%',
-        desc: 'Финские военные возобновили сброс гуманитарной помощи. Внутри можно найти медикаменты, провизию и редкое снаряжение.' 
-    },
-    { 
-        day: 7, 
-        title: 'BTR Patrols (Патрулирование БТР)', 
-        place: 'Vostok (Главные дороги)',
-        chance: '~25%',
-        desc: 'Военные начали использовать бронетехнику для контроля территории. Армейские БТР с тяжелыми пулеметами патрулируют район Востока.' 
-    },
-    { 
-        day: 8, 
-        title: 'Attack Helicopters (Атака вертолетов)', 
-        place: 'Border Zone (Пограничная зона)',
-        chance: '~25%',
-        desc: 'Режим демилитаризации нарушен. Ударные вертолеты патрулируют границу, ведя огонь по всем подозрительным целям.' 
-    },
-    { 
-        day: 9, 
-        title: 'Helicopter Crash Sites (Вертолеты терпят крушения)', 
-        place: 'Area 05 (Зона 05)',
-        chance: '~10%',
-        desc: 'Несколько вертолетов были сбиты. Места крушения содержат очень ценный военный лут, но охраняются сильными отрядами ИИ.' 
-    },
-    { 
-        day: 10, 
-        title: 'Gunsmith returns to Outpost (Оружейник возвращается на Аванпост)', 
-        place: 'Outpost (Аванпост)',
-        chance: 'Гарантировано',
-        desc: 'Оружейник вернулся в свой бункер после таинственной поездки за границу. Доступна покупка оружия, модулей и выполнение его контрактов.' 
-    },
-    { 
-        day: 20, 
-        title: 'Outpost Compromised (Аванпост был обнаружен)', 
-        place: 'Outpost (Аванпост)',
-        chance: '~25%',
-        desc: 'Военные БТР начали заходить прямо на территорию Аванпоста. Зона 05 официально признана небезопасной, ситуация накаляется.' 
-    },
-    { 
-        day: 30, 
-        title: 'Traders leave Area 05 (Торговцы покинули Зону 05)', 
-        place: 'Area 05 (Зона 05)',
-        chance: 'Гарантировано',
-        desc: 'Из-за критической угрозы вторжения войск все ключевые торговцы временно сворачивают дела и покидают Зону 05.' 
-    },
-    { 
-        day: 40, 
-        title: 'Traders return to Area 05 (Торговцы вернулись в Зону 05)', 
-        place: 'Area 05 (Зона 05)',
-        chance: 'Гарантировано',
-        desc: 'Масштабного вторжения не произошло, ситуация стабилизировалась. Снабженец, Доктор и Оружейник вернулись на свои рабочие места.' 
-    },
-    { 
-        day: 50, 
-        title: 'Transmission (Радиосигнал)', 
-        place: 'Area 05 (Зона 05)',
-        chance: 'Гарантировано',
-        desc: 'Загадочный сигнал вернулся в эфир, перекрывая все каналы связи. Это финальное событие версии Build 1.' 
-    }
+
+    { day: 1, title: 'Generalist Returns to Village (Снабженец вернуля в Деревню)', place: 'Village (Деревня)', chance: 'Гарантировано', desc: 'Снабженец — мастер на все руки, открывший магазин в старом гараже. После короткого перерыва он снова в деле и готов продавать товары общего назначения.' },
+
+    { day: 2, title: 'Doctor Returns to School (Доктор вернулся в Школу)', place: 'School (Школа)', chance: 'Гарантировано', desc: 'Доктор вернулся в свою импровизированную клинику. Он отлучался, чтобы проведать бабушку, но теперь снова готов лечить выживших и продавать медикаменты.' },
+
+    { day: 3, title: 'Fighter Jets (Реактивные истребители)', place: 'Area 05 (Зона 05)', chance: '~25%', desc: 'Финские военные проводят демонстрацию силы. В небе часто появляются истребители, совершающие громкие нелетальные облеты Зоны 05.' },
+
+    { day: 4, title: 'Missing Cat (Пропавший кот)', place: 'Outpost (Аванпост)', chance: 'Гарантировано', desc: 'Кот бабушки сбежал и попал в беду. Бандиты бросили коробку где-то на территории Аванпоста.<br><br><b style="color:var(--primary)">ПОДСКАЗКА:</b> Ищите вход в бункер, в нем ищите бетонную шахту. Кот сидит на самом дне.<br><br><div class="slider-container"><div class="slider-wrapper"><img id="cat-slide" src="cat1.png" class="slider-img"></div><div class="slider-controls"><button onclick="changeSlide(-1, event)">←</button><span id="slide-num">1 / 5</span><button onclick="changeSlide(1, event)">→</button></div></div>' },
+
+    { day: 5, title: 'Punisher arrives to Area 05 (Каратель прибывает в Зону 05)', place: 'Area 05 (Зона 05)', chance: '~10%', desc: 'Криминальный авторитет Каратель угнал полицейский фургон и патрулирует территорию со своей бандой. Встреча с ними крайне опасна.' },
+
+    { day: 6, title: 'Airdrops Delivered (Доставка воздушной поддержки)', place: 'Area 05 (Зона 05)', chance: '~10%', desc: 'Финские военные возобновили сброс гуманитарной помощи. Внутри можно найти медикаменты, провизию и редкое снаряжение.' },
+
+    { day: 7, title: 'BTR Patrols (Патрулирование БТР)', place: 'Vostok (Главные дороги)', chance: '~25%', desc: 'Военные начали использовать бронетехнику для контроля территории. Армейские БТР с тяжелыми пулеметами патрулируют район Востока.' },
+
+    { day: 8, title: 'Attack Helicopters (Атака вертолетов)', place: 'Border Zone (Пограничная зона)', chance: '~25%', desc: 'Режим демилитаризации нарушен. Ударные вертолеты патрулируют границу, ведя огонь по всем подозрительным целям.' },
+
+    { day: 9, title: 'Helicopter Crash Sites (Вертолеты терпят крушения)', place: 'Area 05 (Зона 05)', chance: '~10%', desc: 'Несколько вертолетов были сбиты. Места крушения содержат очень ценный военный лут, но охраняются сильными отрядами ИИ.' },
+
+    { day: 10, title: 'Gunsmith returns to Outpost (Оружейник возвращается на Аванпост)', place: 'Outpost (Аванпост)', chance: 'Гарантировано', desc: 'Оружейник вернулся в свой бункер после таинственной поездки за границу. Доступна покупка оружия, модулей и выполнение его контрактов.' },
+
+    { day: 20, title: 'Outpost Compromised (Аванпост был обнаружен)', place: 'Outpost (Аванпост)', chance: '~25%', desc: 'Военные БТР начали заходить прямо на территорию Аванпоста. Зона 05 официально признана небезопасной, ситуация накаляется.' },
+
+    { day: 30, title: 'Traders leave Area 05 (Торговцы покинули Зону 05)', place: 'Area 05 (Зона 05)', chance: 'Гарантировано', desc: 'Из-за критической угрозы вторжения войск все ключевые торговцы временно сворачивают дела и покидают Зону 05.' },
+
+    { day: 40, title: 'Traders return to Area 05 (Торговцы вернулись в Зону 05)', place: 'Area 05 (Зона 05)', chance: 'Гарантировано', desc: 'Масштабного вторжения не произошло, ситуация стабилизировалась. Снабженец, Доктор и Оружейник вернулись на свои рабочие места.' },
+
+    { day: 50, title: 'Transmission (Радиосигнал)', place: 'Area 05 (Зона 05)', chance: 'Гарантировано', desc: 'Загадочный сигнал вернулся в эфир, перекрывая все каналы связи. Это финальное событие версии Build 1.' }
+
 ];
 
         function initApp() {
             const qSec = document.getElementById('quests-section');
             tradersData.forEach(t => {
                 const html = `<div class="trader-header" onclick="openTrader('${t.name}','${t.loc}','${t.pics[0]}','${t.pics[1]}','${t.pics[2]}')">
-                    <img src="${t.img}" class="trader-portrait"><div class="trader-info"><h2>${t.name}</h2><p>Локация: ${t.loc}</p></div></div>
-                    <div id="grid-${t.id}" class="quest-grid"></div>`;
+                <img src="${t.img}" class="trader-portrait"><div class="trader-info"><h2>${t.name}</h2><p>Локация: ${t.loc}</p></div></div>
+                <div id="grid-${t.id}" class="quest-grid"></div>`;
                 qSec.insertAdjacentHTML('beforeend', html);
             });
             renderQuests();
+            initSearchHints();
             loadProgress();
             updateStats();
-            initSearchHints();
         }
 
-function renderQuests() {
-    questsDatabase.forEach(q => {
-        const grid = document.getElementById(`grid-${q.trader}`);
-        if(!grid) return;
-        const needsHTML = q.needs.map((n, i) => q.target ? 
-            `<li>${n} <div class="counter-controls"><button onclick="changeCount(this,-1)">-</button><span class="count-val">0</span>/${q.target}<button onclick="changeCount(this,1)">+</button></div></li>` : 
-            `<li onclick="toggleItem(this,'${q.id}_${i}')">${n}</li>`).join('');
-        
-        const card = document.createElement('div');
-        card.className = 'quest-card'; card.id = q.id;
-        
-        // В этой строке я заменил обычный span на кликабельный с вызовом openQuestDetails
-        card.innerHTML = `<div class="q-header">
-            <span class="q-title-clickable" onclick="openQuestDetails('${q.id}')">${q.title}</span>
-            <span class="diff diff-${q.diff}">${q.diff.toUpperCase()}</span>
-        </div>
-        <div style="flex-grow:1">
-            <span style="font-size:0.7rem;color:#666">НУЖНО:</span><ul class="needs-list">${needsHTML}</ul>
-            <span style="font-size:0.7rem;color:#666">НАГРАДА:</span><ul style="color:#fff">${(q.rewards||[]).map(r=>`<li>${r}</li>`).join('')}</ul>
-        </div>
-        <button class="status-btn" onclick="toggleQ('${q.id}')">ВЫПОЛНЕНО</button>`;
-        
-        grid.appendChild(card);
-    });
-}
+        function renderQuests() {
+            questsDatabase.forEach(q => {
+                const grid = document.getElementById(`grid-${q.trader}`);
+                if(!grid) return;
+                const needsHTML = q.needs.map((n, i) => q.target ? 
+                `<li>${n} <div class="counter-controls"><button onclick="changeCount(this,-1)">-</button><span class="count-val">0</span>/${q.target}<button onclick="changeCount(this,1)">+</button></div></li>` : 
+                `<li onclick="toggleItem(this,'${q.id}_${i}')">${n}</li>`).join('');
+                
+                const card = document.createElement('div');
+                card.className = 'quest-card'; card.id = q.id;
+                card.innerHTML = `<div class="q-header"><span class="q-title-clickable" onclick="openQuestDetails('${q.id}')">${q.title}</span><span class="diff diff-${q.diff}">${q.diff.toUpperCase()}</span></div>
+                <div style="flex-grow:1"><span style="font-size:0.7rem;color:#666">НУЖНО:</span><ul class="needs-list">${needsHTML}</ul><span style="font-size:0.7rem;color:#666">НАГРАДА:</span><ul style="color:#fff">${(q.rewards||[]).map(r=>`<li>${r}</li>`).join('')}</ul></div>
+                <button class="status-btn" onclick="toggleQ('${q.id}')">ВЫПОЛНЕНО</button>`;
+                grid.appendChild(card);
+            });
+        }
 
+        function handleSearch() {
+            const input = document.getElementById('searchInput');
+            const query = input.value;
+            const exact = questsDatabase.find(q => q.title === query);
+            if (exact) { openQuestDetails(exact.id); input.value = ""; input.blur(); document.querySelectorAll('.quest-card, .trader-header').forEach(el => el.style.display = 'flex'); return; }
+            const low = query.toLowerCase();
+            document.querySelectorAll('.quest-grid').forEach(grid => {
+                let hasC = false;
+                grid.querySelectorAll('.quest-card').forEach(card => {
+                    const q = questsDatabase.find(x => x.id === card.id);
+                    const match = q.title.toLowerCase().includes(low) || q.needs.some(n => n.toLowerCase().includes(low));
+                    card.style.display = match ? 'flex' : 'none'; if(match) hasC = true;
+                });
+                grid.previousElementSibling.style.display = hasC ? 'flex' : 'none';
+            });
+        }
+
+        function openQuestDetails(id) {
+            const q = questsDatabase.find(x => x.id === id); if (!q) return;
+            document.getElementById('det-title').innerText = q.title;
+            document.getElementById('det-diff').innerHTML = `<span class="diff diff-${q.diff}">${q.diff.toUpperCase()}</span>`;
+            document.getElementById('det-needs').innerHTML = q.needs.map(n => `<li>${n}</li>`).join('');
+            document.getElementById('det-rewards').innerHTML = (q.rewards||[]).map(r => `<li>${r}</li>`).join('');
+            const g = document.getElementById('det-guide'); g.innerHTML = q.guide ? q.guide : "Инструкция скоро появится.";
+            document.getElementById('questDetailsModal').style.display = 'block'; document.body.style.overflow = 'hidden';
+        }
 
         function switchTab(type) {
             document.getElementById('quests-section').style.display = type === 'q' ? 'block' : 'none';
@@ -322,13 +239,9 @@ function renderQuests() {
             const list = document.getElementById('events-list'); if(list.innerHTML !== "") return;
             eventsData.forEach(ev => {
                 const div = document.createElement('div'); div.className = 'event-card';
-                div.innerHTML = `<div style="display:flex;justify-content:space-between"><span><b>ДЕНЬ ${ev.day}:</b> ${ev.title}</span><span class="toggle-icon">ПОДРОБНЕЕ [+]</span></div>
-                    <div class="event-desc"><p><b>МЕСТО:</b> ${ev.place}</p><p><b>ШАНС:</b> ${ev.chance}</p><p>${ev.desc}</p></div>`;
-                div.onclick = () => {
-                    const d = div.querySelector('.event-desc'); const icon = div.querySelector('.toggle-icon');
-                    const open = d.style.display === 'block'; d.style.display = open ? 'none' : 'block';
-                    icon.innerText = open ? 'ПОДРОБНЕЕ [+]' : 'СКРЫТЬ [-]';
-                };
+                div.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><span><b>ДЕНЬ ${ev.day}:</b> ${ev.title}</span><span class="toggle-icon">ПОДРОБНЕЕ [+]</span></div>
+                <div class="event-desc"><p><b>МЕСТО:</b> ${ev.place}</p><p><b>ШАНС:</b> ${ev.chance}</p><p>${ev.desc}</p></div>`;
+                div.onclick = () => { const d = div.querySelector('.event-desc'); const icon = div.querySelector('.toggle-icon'); const open = d.style.display === 'block'; d.style.display = open ? 'none' : 'block'; icon.innerText = open ? 'ПОДРОБНЕЕ [+]' : 'СКРЫТЬ [-]'; };
                 list.appendChild(div);
             });
         }
@@ -340,224 +253,52 @@ function renderQuests() {
             updateStats();
         }
 
-        function toggleItem(li, id) { li.classList.toggle('item-found'); localStorage.setItem(id, li.classList.contains('item-found')); }
-
-        function changeCount(btn, val) {
-            const span = btn.parentNode.querySelector('.count-val'); const card = btn.closest('.quest-card');
-            const q = questsDatabase.find(x => x.id === card.id);
-            let curr = Math.max(0, Math.min(q.target, parseInt(span.innerText) + val));
-            span.innerText = curr;
-            if(curr === q.target) btn.closest('li').classList.add('item-found'); else btn.closest('li').classList.remove('item-found');
-            localStorage.setItem(card.id + '_cnt', curr);
-        }
-
-        function filterQuests(lvl, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
-            document.querySelectorAll('.quest-card').forEach(card => {
-                const q = questsDatabase.find(x => x.id === card.id);
-                card.style.display = (lvl === 'all' || q.diff === lvl) ? 'flex' : 'none';
-            });
-        }
+        function toggleItem(li, id) { localStorage.setItem(id, li.classList.toggle('item-found')); }
 
         function loadProgress() {
             questsDatabase.forEach(q => {
-                const el = document.getElementById(q.id);
-                if(localStorage.getItem(q.id) === 'true') { el.classList.add('completed'); el.querySelector('.status-btn').innerText = 'ОТМЕНИТЬ'; }
-                const savedCnt = localStorage.getItem(q.id + '_cnt');
-                if(savedCnt) { 
-                    const s = el.querySelector('.count-val'); s.innerText = savedCnt; 
-                    if(parseInt(savedCnt) === q.target) s.closest('li').classList.add('item-found');
-                }
+                const el = document.getElementById(q.id); if (!el) return;
+                if (localStorage.getItem(q.id) === 'true') { el.classList.add('completed'); el.querySelector('.status-btn').innerText = 'ОТМЕНИТЬ'; }
+                el.querySelectorAll('.needs-list li').forEach((li, i) => { if(localStorage.getItem(`${q.id}_${i}`) === 'true') li.classList.add('item-found'); });
+                const saved = localStorage.getItem(q.id + '_cnt');
+                if (saved) { const s = el.querySelector('.count-val'); if(s) { s.innerText = saved; if(parseInt(saved) === q.target) s.closest('li').classList.add('item-found'); } }
             });
         }
 
-        function updateStats() {
-            const total = questsDatabase.length; const done = document.querySelectorAll('.quest-card.completed').length;
-            document.getElementById('total-q').innerText = total; document.getElementById('done-q').innerText = done;
-            document.getElementById('left-q').innerText = total - done;
+        function changeCount(btn, val) {
+            const s = btn.parentNode.querySelector('.count-val'); const c = btn.closest('.quest-card'); const q = questsDatabase.find(x => x.id === c.id);
+            let curr = Math.max(0, Math.min(q.target, parseInt(s.innerText) + val)); s.innerText = curr;
+            if(curr === q.target) s.closest('li').classList.add('item-found'); else s.closest('li').classList.remove('item-found');
+            localStorage.setItem(c.id + '_cnt', curr);
         }
 
-        function openTrader(n, l, i1, i2, i3) {
-            document.getElementById('modalTraderName').innerText = n; document.getElementById('modalTraderLoc').innerText = l;
-            const imgs = [i1, i2, i3]; const labs = ["ЗДАНИЕ:", "КОРИДОР:", "КАБИНЕТ:"];
-            imgs.forEach((src, i) => {
-                const lbl = document.getElementById(`label${i+1}`); const cont = document.getElementById(`imgCont${i+1}`);
-                if(src && src !== 'null') { lbl.innerText = labs[i]; cont.innerHTML = `<img src="${src}" style="width:100%;height:200px;object-fit:cover;margin-top:5px">`; lbl.parentElement.style.display = 'block'; }
-                else lbl.parentElement.style.display = 'none';
-            });
-            document.getElementById('traderModal').style.display = 'block';
+        function initSearchHints() {
+            const hints = new Set(); questsDatabase.forEach(q => { hints.add(q.title); (q.needs||[]).forEach(n => hints.add(n)); });
+            const d = document.getElementById('searchHints'); if(d) { d.innerHTML=''; hints.forEach(h => { const o = document.createElement('option'); o.value = h; d.appendChild(o); }); }
         }
 
+        function changeSlide(d, e) { e.stopPropagation(); if(!window.cS) window.cS=1; const imgs=["cat1.png","cat2.png","cat3.png","cat4.png","cat5.png"]; window.cS+=d; if(window.cS>5) window.cS=1; if(window.cS<1) window.cS=5; document.getElementById('cat-slide').src=imgs[window.cS-1]; document.getElementById('slide-num').innerText=window.cS+" / 5"; }
+        function changeQuestSlide(d, e) { if(e) e.stopPropagation(); if(!window.qS) window.qS=1; const imgs=["school-trader.png","gymn-cor.jpg","gymn.jpg"]; window.qS+=d; if(window.qS>imgs.length) window.qS=1; if(window.qS<1) window.qS=imgs.length; document.getElementById('quest-slide').src=imgs[window.qS-1]; document.getElementById('q-slide-num').innerText=window.qS+" / "+imgs.length; }
+        
+        function filterQuests(lvl, btn) { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.quest-card').forEach(card => { const q = questsDatabase.find(x => x.id === card.id); card.style.display = (lvl === 'all' || q.diff === lvl) ? 'flex' : 'none'; }); }
+        function updateStats() { const t = questsDatabase.length; const d = document.querySelectorAll('.quest-card.completed').length; document.getElementById('total-q').innerText = t; document.getElementById('done-q').innerText = d; document.getElementById('left-q').innerText = t - d; }
+        function openTrader(n, l, i1, i2, i3) { document.getElementById('modalTraderName').innerText = n; document.getElementById('modalTraderLoc').innerText = l; const imgs = [i1, i2, i3]; const labs = ["ЗДАНИЕ:", "КОРИДОР:", "КАБИНЕТ:"]; imgs.forEach((src, i) => { const lbl = document.getElementById(`label${i+1}`); const cont = document.getElementById(`imgCont${i+1}`); if(src && src !== 'null') { lbl.innerText = labs[i]; cont.innerHTML = `<img src="${src}" style="width:100%;height:200px;object-fit:cover;margin-top:5px">`; lbl.parentElement.style.display = 'block'; } else lbl.parentElement.style.display = 'none'; }); document.getElementById('traderModal').style.display = 'block'; }
         function closeModal() { document.getElementById('traderModal').style.display = 'none'; }
-        window.onclick = (e) => { if(e.target == document.getElementById('traderModal')) closeModal(); }
-
-function handleSearch() {
-    const input = document.getElementById('searchInput');
-    const query = input.value.trim(); // Берем текст без лишних пробелов
-    const lowerQuery = query.toLowerCase();
-    
-    // 1. Проверяем: если введено полное название квеста (выбрано из списка)
-    const exactMatch = questsDatabase.find(q => q.title === query);
-    if (exactMatch) {
-        openQuestDetails(exactMatch.id); // Открываем окно
-        input.value = ""; // Очищаем поиск
-        // Возвращаем видимость всем квестам
-        document.querySelectorAll('.quest-card').forEach(c => c.style.display = 'flex');
-        return; 
-    }
-
-    // 2. Обычная фильтрация карточек на лету
-    document.querySelectorAll('.quest-card').forEach(card => {
-        const qData = questsDatabase.find(q => q.id === card.id);
-        if (!qData) return;
-
-        const match = qData.title.toLowerCase().includes(lowerQuery) || 
-                      qData.needs.some(n => n.toLowerCase().includes(lowerQuery));
-
-        card.style.display = match ? 'flex' : 'none';
-    });
-}
-
-// 1. Создаем список подсказок из всех предметов и названий
-function initSearchHints() {
-    const hints = new Set(); // Используем Set, чтобы не было дубликатов
-    questsDatabase.forEach(q => {
-        hints.add(q.title); // Добавляем название квеста
-        q.needs.forEach(item => hints.add(item)); // Добавляем каждый предмет
-    });
-
-    const datalist = document.getElementById('searchHints');
-    hints.forEach(hint => {
-        const option = document.createElement('option');
-        option.value = hint;
-        datalist.appendChild(option);
-    });
-}
-
-// Сама функция поиска
-function handleSearch() {
-    const input = document.getElementById('searchInput');
-    const query = input.value; // Берем текст из поля
-    const lowerQuery = query.toLowerCase();
-
-    // 1. ПРОВЕРКА: Если введено полное название квеста (выбрано из списка подсказок)
-    const exactQuest = questsDatabase.find(q => q.title === query);
-    
-    if (exactQuest) {
-        openQuestDetails(exactQuest.id); // ОТКРЫВАЕМ ОКНО КВЕСТА
-        input.value = ""; // Очищаем поле поиска после открытия
-        
-        // Возвращаем видимость всем карточкам, чтобы сбросить фильтр
-        document.querySelectorAll('.quest-card').forEach(c => c.style.display = 'flex');
-        document.querySelectorAll('.trader-header').forEach(h => h.style.display = 'flex');
-        return; // Выходим из функции
-    }
-
-    // 2. ОБЫЧНАЯ ФИЛЬТРАЦИЯ (скрываем лишние карточки при наборе текста)
-    document.querySelectorAll('.quest-grid').forEach(grid => {
-        let hasVisibleCards = false;
-        
-        grid.querySelectorAll('.quest-card').forEach(card => {
-            const qData = questsDatabase.find(q => q.id === card.id);
-            if (!qData) return;
-
-            const match = qData.title.toLowerCase().includes(lowerQuery) || 
-                          qData.needs.some(n => n.toLowerCase().includes(lowerQuery));
-
-            card.style.display = match ? 'flex' : 'none';
-            if (match) hasVisibleCards = true;
-        });
-
-        // Скрываем заголовок торговца, если у него нет подходящих квестов
-        const header = grid.previousElementSibling;
-        if (header && header.classList.contains('trader-header')) {
-            header.style.display = hasVisibleCards ? 'flex' : 'none';
-        }
-    });
-}
-
-
-// Не забудьте добавить вызов initSearchHints() в вашу функцию initApp()
-
-function openQuestDetails(id) {
-    const q = questsDatabase.find(x => x.id === id);
-    if (!q) return;
-
-    // Заполняем заголовок и сложность
-    document.getElementById('det-title').innerText = q.title;
-    document.getElementById('det-diff').innerHTML = `<span class="diff diff-${q.diff}">${q.diff.toUpperCase()}</span>`;
-    
-    // Заполняем списки
-    document.getElementById('det-needs').innerHTML = q.needs.map(n => `<li>${n}</li>`).join('');
-    document.getElementById('det-rewards').innerHTML = q.rewards ? q.rewards.map(r => `<li>${r}</li>`).join('') : '<li>Награды отсутствуют</li>';
-
-    // Показываем модалку
-    document.getElementById('questDetailsModal').style.display = 'block';
-    
-    // Блокируем прокрутку основного сайта под модалкой
-    document.body.style.overflow = 'hidden';
-}
-
-function closeQuestModal() {
-    document.getElementById('questDetailsModal').style.display = 'none';
-    // Возвращаем прокрутку
-    document.body.style.overflow = 'auto';
-}
-
-// Закрытие при клике вне окна (добавь это к своим window.onclick)
-window.addEventListener('click', function(event) {
-    const modal = document.getElementById('questDetailsModal');
-    if (event.target == modal) {
-        closeQuestModal();
-    }
-});
-
-// Функция, которая срабатывает при выборе из списка подсказок
-function handleSelect(value) {
-    // Ищем квест в базе данных, у которого название совпадает с тем, что ввели/выбрали
-    const quest = questsDatabase.find(q => q.title === value);
-    
-    if (quest) {
-        // Если нашли квест с таким названием - открываем его страницу
-        openQuestDetails(quest.id);
-        
-        // Очищаем поле поиска после выбора (по желанию)
-        document.getElementById('searchInput').value = '';
-        // Сбрасываем фильтры, чтобы все квесты снова стали видны
-        handleSearch(); 
-    }
-}
-
-
-
+        function closeQuestModal() { document.getElementById('questDetailsModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+        window.addEventListener('click', e => { if(e.target.classList.contains('modal')) { closeModal(); closeQuestModal(); } });
     </script>
-    <!-- Модальное окно "Страница квеста" -->
-<div id="questDetailsModal" class="modal">
-    <div class="modal-content" style="max-width: 900px; border-color: var(--primary);">
-        <span class="close-modal" onclick="closeQuestModal()">&times;</span>
-        
-        <h1 id="det-title" style="color: var(--primary); text-transform: uppercase; margin-bottom: 5px;"></h1>
-        <div id="det-diff" style="margin-bottom: 25px;"></div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-            <div style="background: rgba(255,255,255,0.02); padding: 15px; border: 1px solid #222;">
-                <h3 style="color: var(--primary); font-size: 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px;">СПИСОК ТРЕБОВАНИЙ</h3>
-                <ul id="det-needs" style="line-height: 1.8;"></ul>
-            </div>
-            <div style="background: rgba(255,255,255,0.02); padding: 15px; border: 1px solid #222;">
-                <h3 style="color: var(--primary); font-size: 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px;">НАГРАДА ЗА ВЫПОЛНЕНИЕ</h3>
-                <ul id="det-rewards" style="color: #fff; line-height: 1.8;"></ul>
-            </div>
-        </div>
 
-        <div style="margin-top: 25px; padding: 20px; background: #111; border-left: 4px solid var(--primary);">
-            <h3 style="margin: 0 0 10px 0; font-size: 0.8rem; color: #555;">РУКОВОДСТВО ПО ПРОХОЖДЕНИЮ</h3>
-            <p id="det-guide" style="color: #999; font-size: 0.9rem; margin: 0;">
-                Здесь будет подробное описание прохождения, карты и скриншоты для этого задания.
-            </p>
+    <div id="questDetailsModal" class="modal">
+        <div class="modal-content" style="max-width: 900px; border-color: var(--primary);">
+            <span class="close-modal" onclick="closeQuestModal()">&times;</span>
+            <h1 id="det-title" style="color: var(--primary); text-transform: uppercase; margin-bottom: 5px;"></h1>
+            <div id="det-diff" style="margin-bottom: 25px;"></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div style="background: rgba(255,255,255,0.02); padding: 15px; border: 1px solid #222;"><h3 style="color: var(--primary); font-size: 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px;">СПИСОК ТРЕБОВАНИЙ</h3><ul id="det-needs" style="line-height: 1.8;"></ul></div>
+                <div style="background: rgba(255,255,255,0.02); padding: 15px; border: 1px solid #222;"><h3 style="color: var(--primary); font-size: 0.8rem; border-bottom: 1px solid #333; padding-bottom: 5px;">НАГРАДА ЗА ВЫПОЛНЕНИЕ</h3><ul id="det-rewards" style="color: #fff; line-height: 1.8;"></ul></div>
+            </div>
+            <div style="margin-top: 25px; padding: 20px; background: #111; border-left: 4px solid var(--primary);"><h3 style="margin: 0 0 10px 0; font-size: 0.8rem; color: #555;">РУКОВОДСТВО ПО ПРОХОЖДЕНИЮ</h3><p id="det-guide" style="color: #999; font-size: 0.9rem; margin: 0;"></p></div>
         </div>
     </div>
-</div>
-
 </body>
 </html>

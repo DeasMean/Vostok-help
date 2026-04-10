@@ -276,27 +276,10 @@ const eventsData = [
             const hints = new Set(); questsDatabase.forEach(q => { hints.add(q.title); (q.needs||[]).forEach(n => hints.add(n)); });
             const d = document.getElementById('searchHints'); if(d) { d.innerHTML=''; hints.forEach(h => { const o = document.createElement('option'); o.value = h; d.appendChild(o); }); }
         }
-function changeSlide(d, e) { 
-    e.stopPropagation(); 
-    if(!window.cS) window.cS = 1; 
-    const imgs = ["img/cat1.png", "img/cat2.png", "img/cat3.png", "img/cat4.png", "img/cat5.png"]; 
-    window.cS += d; 
-    if (window.cS > 5) window.cS = 1; 
-    if (window.cS < 1) window.cS = 5; 
-    document.getElementById('cat-slide').src = imgs[window.cS - 1]; 
-    document.getElementById('slide-num').innerText = window.cS + " / 5"; 
-}
 
-function changeQuestSlide(d, e) { 
-    if (e) e.stopPropagation(); 
-    if(!window.qS) window.qS = 1; 
-    const imgs = ["img/school-trader.png", "img/gymn-cor.jpg", "img/gymn.jpg"]; 
-    window.qS += d; 
-    if (window.qS > imgs.length) window.qS = 1; 
-    if (window.qS < 1) window.qS = imgs.length; 
-    document.getElementById('quest-slide').src = imgs[window.qS - 1]; 
-    document.getElementById('q-slide-num').innerText = window.qS + " / " + imgs.length; 
-}
+function changeSlide(d, e) { e.stopPropagation(); if(!window.cS) window.cS=1; const imgs=["img/cat1.png","img/cat2.png","img/cat3.png","img/cat4.png","img/cat5.png"]; window.cS+=d; if(window.cS>5) window.cS=1; if(window.cS<1) window.cS=5; document.getElementById('cat-slide').src=imgs[window.cS-1]; document.getElementById('slide-num').innerText=window.cS+" / 5"; }
+function changeQuestSlide(d, e) { if(e) e.stopPropagation(); if(!window.qS) window.qS = 1; const imgs = ["img/school-trader.png", "img/gymn-cor.jpg", "img/gymn.jpg"]; window.qS += d; if (window.qS > imgs.length) window.qS = 1; if (window.qS < 1) window.qS = imgs.length; document.getElementById('quest-slide').src = imgs[window.qS - 1]; document.getElementById('q-slide-num').innerText = window.qS + " / " + imgs.length; }
+        
         function filterQuests(lvl, btn) { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.quest-card').forEach(card => { const q = questsDatabase.find(x => x.id === card.id); card.style.display = (lvl === 'all' || q.diff === lvl) ? 'flex' : 'none'; }); }
         function updateStats() { const t = questsDatabase.length; const d = document.querySelectorAll('.quest-card.completed').length; document.getElementById('total-q').innerText = t; document.getElementById('done-q').innerText = d; document.getElementById('left-q').innerText = t - d; }
         function openTrader(n, l, i1, i2, i3) { document.getElementById('modalTraderName').innerText = n; document.getElementById('modalTraderLoc').innerText = l; const imgs = [i1, i2, i3]; const labs = ["ЗДАНИЕ:", "КОРИДОР:", "КАБИНЕТ:"]; imgs.forEach((src, i) => { const lbl = document.getElementById(`label${i+1}`); const cont = document.getElementById(`imgCont${i+1}`); if(src && src !== 'null') { lbl.innerText = labs[i]; cont.innerHTML = `<img src="img/"${src}" style="width:100%;height:200px;object-fit:cover;margin-top:5px">`; lbl.parentElement.style.display = 'block'; } else lbl.parentElement.style.display = 'none'; }); document.getElementById('traderModal').style.display = 'block'; }
